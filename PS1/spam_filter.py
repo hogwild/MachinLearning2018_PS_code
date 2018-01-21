@@ -7,7 +7,6 @@ Created on Fri Jan 19 13:45:42 2018
 """
 
 
-
 class Spam_filter:
     
     def __init__(self, word_list=[], minNum_words=0):
@@ -21,7 +20,8 @@ class Spam_filter:
         words = {}
         while email:
             word_list = email.split()
-            for w in word_list[1:]:
+            word_list = set(word_list[1:])
+            for w in word_list:
                 words[w] = words.get(w, 0) + 1
             email = f.readline()
         word_list = []
@@ -94,9 +94,9 @@ class Spam_filter:
 if __name__ == "__main__":
     perceptron_filter = Spam_filter(minNum_words=20)
     perceptron_filter.get_word_list("train.txt")
-    w, k, t = perceptron_filter.preceptron_train("train.txt")
-    error_rate = perceptron_filter.error_rate("validation.txt")
-    print ("The error rate is: {}".format(round(error_rate, 3)))
+#    w, k, t = perceptron_filter.preceptron_train("train.txt")
+#    error_rate = perceptron_filter.error_rate("validation.txt")
+#    print ("The error rate is: {}".format(round(error_rate, 3)))
     
       
         

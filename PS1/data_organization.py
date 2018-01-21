@@ -26,14 +26,14 @@ Created on Fri Jan 19 09:34:30 2018
     
 
 
-f = open('spam_train_2018.txt', 'r')
+f = open('spam_train.txt', 'r')
 train_data = open('train.txt', 'w')
 validation = open('validation.txt', 'w')
 data = f.readline()
 count = 0
 while data:
 #    print(data)
-    if count < 3000:
+    if count < 4000:
         train_data.write(data)
     else:
         validation.write(data)
