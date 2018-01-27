@@ -49,13 +49,14 @@ B. Gradient Descent to Find Weights (Parameters)
 
 Our hypothesis (also called the model) will take the form $y = f(x_1,x_2) = w_0 + w_1x_1 + w_2x_2$ where $x_1$ is the normalized size of the house, $x_2$ is the normalized number of bedrooms, and $y$ is the predicted price of the house. In this problem, your goal is to find the values of $w_0$, $w_1$, and $w_2$ that minimize the sum of the squared errors (MSE).
 
-(a) Suppose there are m examples. Write down the formula for the loss function $J(w)$ using the sum of the squared errors. Be sure to include a $\frac{1}{2m}$ term.
+(a) Suppose there are $m$ examples. Write down the formula for the loss function $J(w)$ using the sum of the squared errors. Be sure to include a $\frac{1}{2m}$ term.  
+Ansewer: $J(w) = \frac{1}{2m}\sum_{i=1}^m(w_0+w_1x_1^{(i)}+w_2x_2^{(i)}-y^{(i)})^2$
 
 (b) Implement gradient descent to find the values $w_0$, $w_1$, and $w_2$ that minimize $J(w)$. Apply your code to the normalized data set using the learning rates $\alpha = 0.01, 0.1, 0.3$.
 
 A good way to verify that gradient descent is working correctly is to look at the value of $J(w)$ and check that it is decreasing with each step.  Assuming you have implemented gradient descent correctly and your learning rate is not too big,  your value of $J(w)$ should never increase, and should converge to a steady value by the end of the algorithm. Plot $J(w)$ for $10, 20,30,40,50, 60,70, 80$ iterations for  each of your $\alpha$ values.
 
-(d) Do the same for learning rates $\alpha = 0.05$ and $0.5$. Comment on which of the five learning rates gives the best result.
+(c) Do the same for learning rates $\alpha = 0.05$ and $0.5$. Comment on which of the five learning rates gives the best result.
 
 Implementation Note: If your learning rate is too large, $J(w)$ can diverge and `blow up', resulting in values which are too large for computer calculations.
 
