@@ -65,10 +65,10 @@ class Spam_filter:
                 if sum(fea) == 0:
                     print("a odd point:", temp)
                 inner_prod = np.dot(w, fea)
-                if inner_prod == 0:
-                    print("the inner product: {}, the label: {}, the index: {}".format(inner_prod, label, temp))
+#                if inner_prod == 0:
+#                    print("the inner product: {}, the label: {}, the index: {}".format(inner_prod, label, temp))
 #                print("the inner product: {}, the label: {}".format(inner_prod, label))
-                if inner_prod > 0:
+                if inner_prod >= 0:
                     sign = 1
 #                elif inner_prod == 0:
 #                    if t > 10:
@@ -77,6 +77,8 @@ class Spam_filter:
                 else:
                     sign = -1
                 if label*sign < 0:
+#                if label*inner_prod <= 0:
+    
                     k += 1
                     k_per_iter += 1
                     w += label*fea.transpose()

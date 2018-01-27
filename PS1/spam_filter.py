@@ -27,7 +27,8 @@ class Spam_filter:
         word_list = []
         for k, v in words.items():
             if v > self.minNum_words:
-                self.word_list.append(k) 
+                self.word_list.append(k)
+        print("The number of total words: {}".format(len(words)))
         print("The length of the word list: {}".format(len(self.word_list)))
         print("The word list has been updated.")
                 
@@ -47,7 +48,9 @@ class Spam_filter:
         data = f.readlines()
         while not converge:
             k_per_iter = 0
+            count = 0
             for email in data:
+                count += 1
                 words = email.split()
                 label = int(words[0])
                 if label == 0:
@@ -56,11 +59,11 @@ class Spam_filter:
                 inner_prod = 0
                 for i in range(len(w)):
                     inner_prod += w[i]*fea[i]
-                if inner_prod >= 0:
-                    pred = 1
+                if inner_prod > 0:
+                    pred_sign = 1
                 else:
-                    pred = -1
-                if label*pred < 0:
+                    pred_sign = -1
+                if label*pred_sign < 0:
                     k += 1
                     k_per_iter += 1
                     for j in range(len(w)):
@@ -92,9 +95,9 @@ class Spam_filter:
 
 
 if __name__ == "__main__":
-    perceptron_filter = Spam_filter(minNum_words=20)
+    perceptron_filter = Spam_filter(minNum_words=25)
     perceptron_filter.get_word_list("train.txt")
-#    w, k, t = perceptron_filter.preceptron_train("train.txt")
+    w, k, t = perceptron_filter.preceptron_train("train.txt")
 #    error_rate = perceptron_filter.error_rate("validation.txt")
 #    print ("The error rate is: {}".format(round(error_rate, 3)))
     
