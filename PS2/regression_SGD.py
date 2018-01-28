@@ -32,35 +32,36 @@ def compute_grad(pred_i, truth_i, x):
     return grad
 
 
-## training with gradient descent 
-def train(X, y, learning_rate):
-    num_iter = 1000
+## training with stochastic gradient descent 
+def train(X, learning_rate):
+    num_iter = 3
     steps = 0
-    margin = 0.15
+    margin = 0.0001
     error_history = []
-    num_dim = len(X[0])
+    num_dim = len(X[0]) - 1
 #    n = len(X)
     w = [0 for i in range(num_dim)]
     while True:
         ## predict and compute error
         random.shuffle(X)
+        error = 0
         for x in X:
-            pred_y = []
-            for x in X:
-                temp = 0
-                for i, x_i in enumerate(x):
-                    temp += w[i]*x_i
-                pred_y.append(temp)
-                print(temp)
-            error = compute_error(pred_y, y)
-            error_history.append(error)
-            if error <= margin or steps >= num_iter:
-                return w, error_history, steps
+            pred_y = 0
+            y = x[-1]
+            for i, x_i in enumerate(x[:-1]):
+                pred_y += w[i]*x_i
+#                print(temp)
+            error += compute_error([pred_y], [y])                
         ## SGD 
-            g = compute_grad(pred_y[i], y[i], x)                
+            g = compute_grad(pred_y, y, x[:-1])              
             for i in range(num_dim):
                 w[i] -= learning_rate*g[i]
+        error /= len(X) ## it has been divided by 2 in the compute errors
+        error_history.append(error)
+        if error <= margin or steps >= num_iter:
+            return w, error_history, steps
         steps += 1
+        
     
 
 
@@ -70,12 +71,12 @@ if __name__ == "__main__":
     f = open('normalized.txt', 'r')   
     data = f.readline()
     X = []
-    y = []
+#    y = []
     while data:
         temp = data.split(',')
         for i in range(len(temp)):
             temp[i] = float(temp[i])
-        y.append(temp.pop())
+#        y.append(temp.pop())
         temp.insert(0, 1)
         X.append(temp)
         data = f.readline()
@@ -86,8 +87,8 @@ if __name__ == "__main__":
     
 
 ## regression
-    learning_rate = 1
-    w, error_history, steps = train(X, y, learning_rate)
+    learning_rate = 0.1
+    w, error_history, steps = train(X, learning_rate)
 
 ## prediction
     f = open('mean_std.pk', 'rb')
