@@ -37,7 +37,8 @@ By looking at the values in housing.txt, you will note that house sizes are abou
 
 (a) Given a set of numbers $x_1,\cdots,x_m$, write down the equations for the mean and standard deviations of these numbers. The standard deviation is a way of measuring how much variation there is in the range of values of a particular feature (most data points will lie within 2 standard deviations of the mean); this is an alternative to taking the range of values (max-min).
 
-Answer: $mean = \frac{1}{m}\sum_{i=1}^{m} x_i$, $std = \sqrt{\frac{1}{m}\sum_{i=1}^{m}(x_i-mean)^2}$
+Answer: $mean = \frac{1}{m}\sum_{i=1}^{m} x_i$, $std = \sqrt{\frac{1}{m}\sum_{i=1}^{m}(x_i-mean)^2}$. Moreover, for the dependent variable $y$, the normalization depends. In our case, the normalized $y$ and original $y$ will give the same model.(the $w$s of the two models are different, but the predictions of the models are same.)
+
 
 (b) Write a python function that takes in a list of real numbers and returns the mean and standard deviation for that list.
 

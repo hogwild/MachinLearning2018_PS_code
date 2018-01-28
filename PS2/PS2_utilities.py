@@ -56,14 +56,14 @@ def proc_housing_data(filename):
     l['mean'], l['std'] = get_mean_and_std(living_room_area)
     b['mean'], b['std'] = get_mean_and_std(number_bedrooms)
     p['mean'], p['std'] = get_mean_and_std(price)
-    print(l, b, p)
+    print(l, b)#, p)
     
     normal_living = normalization(living_room_area, l['mean'], l['std'])
     normal_bedroom = normalization(number_bedrooms, b['mean'], b['std'])
     normal_price = normalization(price, p['mean'], p['std'])
     
     f = open("normalized.txt", 'w')
-    for i in range(len(normal_price)):
+    for i in range(len(price)):
         f.write(str(normal_living[i]) + ','+ str(normal_bedroom[i]) + ',' + \
                 str(normal_price[i])+'\n')
     f.close()
