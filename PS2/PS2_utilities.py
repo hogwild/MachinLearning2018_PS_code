@@ -6,6 +6,10 @@ Created on Sat Jan 27 19:51:29 2018
 @author: hogwild
 """
 
+import pickle
+
+
+
 def get_mean(x):
     return sum(x)/len(x)
 
@@ -46,21 +50,26 @@ def proc_housing_data(filename):
         price.append(int(r[2]))
         recorder = f.readline()
 ## normalization
-    l_m, l_std = get_mean_and_std(living_room_area)
-    print(l_m, l_std)
-    b_m, b_std = get_mean_and_std(number_bedrooms)
-    p_m, p_std = get_mean_and_std(price)
+    l = {}
+    b = {}
+    p = {}
+    l['mean'], l['std'] = get_mean_and_std(living_room_area)
+    b['mean'], b['std'] = get_mean_and_std(number_bedrooms)
+    p['mean'], p['std'] = get_mean_and_std(price)
+    print(l, b, p)
     
-    normal_living = normalization(living_room_area, l_m, l_std)
-    normal_bedroom = normalization(number_bedrooms, b_m, b_std)
-    normal_price = normalization(price, p_m, p_std)
+    normal_living = normalization(living_room_area, l['mean'], l['std'])
+    normal_bedroom = normalization(number_bedrooms, b['mean'], b['std'])
+    normal_price = normalization(price, p['mean'], p['std'])
     
     f = open("normalized.txt", 'w')
     for i in range(len(normal_price)):
         f.write(str(normal_living[i]) + ','+ str(normal_bedroom[i]) + ',' + \
                 str(normal_price[i])+'\n')
     f.close()
-
+    f = open("mean_std.pk", "wb")
+    pickle.dump((l, b, p), f)
+    f.close()
     
 if __name__ == "__main__":
 #    x = [i for i in range(10)]
